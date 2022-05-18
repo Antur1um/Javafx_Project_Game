@@ -37,13 +37,6 @@ public class UnitList {
         return false;
     }
 
-    public int CountFood(){ // 
-        int total_food = 0;
-        for(int i=0; i < arr_uns.size(); i++)
-            total_food+= arr_uns.get(i).getFood();
-       return total_food;     
-    }
-
     public void mergeUnit(int x1, int y1, int x2, int y2){
 
         Unit unit1 = getUnitByCoordinat(x1, y1);

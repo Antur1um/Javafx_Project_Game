@@ -8,13 +8,11 @@ public class CapturedTile extends Tile {
         {
             setSkin("x");
             setSide(1);
-            setProfit(1);
         }
         else
         {
             setSkin("#");
             setSide(2);
-            setProfit(1);
         }  
     }
     public int getType(){

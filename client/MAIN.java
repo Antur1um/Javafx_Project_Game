@@ -14,7 +14,7 @@ public class MAIN {
 
         Field f = new Field(12, 30);
         f.addTile(1, 4, new CapturedTile(false));
-        f.addTile(1, 5, new CapturedTile(true));
+        f.addTile(1, 3, new CapturedTile(false));
        
 
         Unit u0 = new Wanderer(1, 2);

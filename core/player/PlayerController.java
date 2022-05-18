@@ -8,44 +8,15 @@ public class PlayerController {
     private int side;              // 1-красный, 2-синий
     private Field fid;            // Поле общее для всех гроков
     private UnitList plr_units;  // Массив из всех юнитов игрока
-    private int treasury; //Казна
-    private int profit; // текущая прибыль
 
     public PlayerController(int side, Field field){
         this.side = side;
         this.fid = field;
-        this.treasury = 10;
-        this.profit = 5; 
         plr_units = new UnitList();
-
     }
-    public int getProfit(){
-        return profit;
-    }
-
-    public int getSide(){
-        return side;
-    }
-    public int getTreasury(){
-        return treasury;
-    }
-
     public UnitList getUnitsList(){
         return plr_units;
     }
-
-    public void UpdateTreasure(){
-        this.treasury = this.treasury + this.profit;
-    }
-
-   public void CountMyProfit(){
-       int Profit = fid.getTotalProfit_for_Side(side);
-       int Food = plr_units.CountFood();
-       profit = Profit - Food;
-   }
-
-
-
 
     public boolean Check_path(int start_x, int start_y, int end_x, int end_y)  // проверяет может ли дойти юнит до точки
     {
@@ -95,7 +66,7 @@ public class PlayerController {
 
         len = grid[end_y][end_x];
 
-        if( len > 5) return false;    // 5 - длина пути!
+        if( len > 3) return false;    // 3 - длина пути!
         else return true;
     }
 
@@ -110,5 +81,4 @@ public class PlayerController {
         return false;
     }
 
-   
 }

@@ -33,10 +33,6 @@ public class Dispatcher {
         System.out.println("1. Выбрать юнит");
         System.out.println("2. Создать юнит");
         System.out.println("3. Завершить ход");
-        p1.CountMyProfit();
-        p1.UpdateTreasure();
-        System.out.println("Казна: " + p1.getTreasury());
-        System.out.println("Прибыль " + p1.getProfit());
         int s = console.nextInt();
 
         if(s == 1) menuMoveUnit();
@@ -99,7 +95,7 @@ public class Dispatcher {
 
             if(fid.getTile(x, y).getSide() == 0){
                 ut.setAction(false);
-                fid.addTile(x, y, new CapturedTile(false));
+                fid.addTile(x, y, new CapturedTile(true));
             }
 
             p1.getUnitsList().addUnit(ut);
