@@ -6,6 +6,7 @@ public class Unit {
     private int position_x;
     private int position_y;
     private int rank;
+    private int food; // на сколько уменьшится прибыль при добавлении юнита
     private boolean side; // в отличие от плитки либо красный, либо синий.
     private boolean action = true;  // 0-сходил, 1-не сходил
 
@@ -26,6 +27,9 @@ public class Unit {
     public int getRank(){
         return rank;
     }
+    public int getFood(){
+        return food;
+    }
     public boolean getSide(){
         return side;
     }
@@ -44,6 +48,9 @@ public class Unit {
     }
     public void setRank(int rank){
         this.rank = rank;
+    }
+    public void setFood(int food){
+        this.food = food;
     }
     public void setSide(boolean s){
         side = s;
