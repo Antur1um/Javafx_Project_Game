@@ -27,8 +27,10 @@ public class Dispatcher {
         render.drawField(fid, p1.getUnitsList(), p2.getUnitsList());
         
         System.out.println(); 
+        if(current_plr.getSide() == 1) System.out.println("\u001B[31m");
+        else if(current_plr.getSide() == 2)  System.out.println("\u001B[36m");
         System.out.println("Казна: " + current_plr.getTreasury());
-        System.out.println("Прибыль: " + current_plr.countProfit());
+        System.out.println("Прибыль: " + current_plr.countProfit() + "\u001B[0m");
         System.out.println("1. Выбрать юнит");
         System.out.println("2. Создать юнит");
         System.out.println("3. Завершить ход");
@@ -87,7 +89,7 @@ class Render {
 
     public static final String COLOR_RESET = "\u001B[0m";
     public static final String COLOR_RED = "\u001B[31m";
-    public static final String COLOR_BLUE = "\u001B[34m";
+    public static final String COLOR_BLUE = "\u001B[36m";
 
 
     public void drawField(Field f, UnitList ur, UnitList ub){

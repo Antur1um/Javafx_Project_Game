@@ -126,8 +126,10 @@ public class PlayerController {
 
     public void moveUnit(int start_x, int start_y, int end_x, int end_y){
 
+        if(start_x == end_x && start_y == end_y) return;
+        
         if(checkPath(start_x, start_y, end_x, end_y) && checkZone(end_x, end_y))
-            if(plr_units.checkPoint(end_x, end_y))   // если ходи на юнита нашего
+            if(plr_units.checkPoint(end_x, end_y))   // если ходит на свой юнита
                 plr_units.mergeUnit(start_x, start_y, end_x, end_y);
             else{
                 Unit unit_mv = plr_units.getUnitByCoordinat(start_x, start_y);
