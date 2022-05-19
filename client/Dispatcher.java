@@ -21,7 +21,7 @@ public class Dispatcher {
 
     Scanner console = new Scanner(System.in);
 
-    public void menuHome(){
+    public void menuHome(PlayerController current_plr){
 
        // System.out.println("\033\143");
         render.drawField(fid, p1.getUnitsList(), p2.getUnitsList());
@@ -32,20 +32,20 @@ public class Dispatcher {
         System.out.println("3. Завершить ход");
         int s = console.nextInt();
 
-        if(s == 1) menuMoveUnit();
-        else if(s == 2) menuCreateUnit();
+        if(s == 1) menuMoveUnit(current_plr);
+        else if(s == 2) menuCreateUnit(current_plr);
         else if(s == 3) menuСomplete();
-        else menuHome();
+        else menuHome(current_plr);
 
     }
-    public void menuMoveUnit(){
+    public void menuMoveUnit(PlayerController current_plr){
 
         System.out.print("Координаты X: ");
         int x = console.nextInt();
         System.out.print("Координаты Y: ");
         int y = console.nextInt();
 
-        if(p1.getUnitsList().checkPoint(x, y)){
+        if(current_plr.getUnitsList().checkPoint(x, y)){
             System.out.flush();
             System.out.println("Куда переместить?");
             System.out.print("Координаты X: ");
@@ -53,25 +53,25 @@ public class Dispatcher {
             System.out.print("Координаты Y: ");
             int y1 = console.nextInt();
 
-            p1.moveUnit(x, y, x1, y1);
+            current_plr.moveUnit(x, y, x1, y1);
         }
         else{
             System.out.println("Юнита нет...");
             console.nextInt();
         }
 
-        menuHome();
+        menuHome(current_plr);
     }
-    public void menuCreateUnit(){
+    public void menuCreateUnit(PlayerController current_plr){
 
         System.out.print("Координаты X: ");
         int x = console.nextInt();
         System.out.print("Координаты Y: ");
         int y = console.nextInt();
 
-        p1.createUnit(x, y);
+        current_plr.createUnit(x, y);
 
-        menuHome();
+        menuHome(current_plr);
 
     }
     public void menuСomplete(){

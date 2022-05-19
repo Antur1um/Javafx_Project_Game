@@ -30,10 +30,8 @@ public class Game {
     public void run(){
 
         while(!stop){
-
-            dispatcher.menuHome();
-
-
+            dispatcher.menuHome(player_1);
+            dispatcher.menuHome(player_2);
         }
     }
     
