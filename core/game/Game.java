@@ -18,10 +18,18 @@ public class Game {
 
     public Game(){
         field = new Field(12, 30);
+        field.addTile(0, 4, new CapturedTile(1));
         field.addTile(1, 4, new CapturedTile(1));
-        field.addTile(1, 5, new CapturedTile(1));
-        field.addTile(1, 6, new CapturedTile(2));
-        field.addTile(2, 7, new CapturedTile(2));
+        field.addTile(2, 4, new CapturedTile(1));
+        field.addTile(3, 4, new CapturedTile(1));
+        field.addTile(2, 5, new CapturedTile(1));
+        field.addTile(2, 3, new CapturedTile(1));
+       
+        field.addTile(4, 4, new CapturedTile(2));
+        field.addTile(5, 4, new CapturedTile(2));
+        field.addTile(6, 4, new CapturedTile(2));
+        field.addTile(5, 5, new CapturedTile(2));
+        field.addTile(5, 3, new CapturedTile(2));
 
 
         player_1 = new PlayerController(1, field);

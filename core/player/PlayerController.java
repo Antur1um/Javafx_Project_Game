@@ -97,11 +97,17 @@ public class PlayerController {
 
     public boolean checkZone(int x, int y)  // проверяет полученную точку на принадлежность к своей территории
     {                                       //  + её границы.
+        int dx[] = {1, 0, -1, 0, -1, 1, -1, 1 };  
+        int dy[] = {0, 1, 0, -1, 1, 1, -1, -1};
+
         if(fid.getTile(x, y).getSide() == side) return true;
         else{
-            for (int i=y-1; i <= y+1 && i >= 0 && i < fid.getHeight(); i++)
-                for(int j=x-1; j <= x+1 && j >= 0 && j < fid.getWidtht(); j++)
-                    if(fid.getTile(j, i).getSide() == side) return true;
+            for(int k=0; k < 8; k++)
+            {
+                int iy=y + dy[k], ix = x + dx[k];
+                if(iy >= 0 && iy < fid.getHeight() && ix >= 0 
+                   && ix < fid.getWidtht() && fid.getTile(ix, iy).getSide() == side) return true;
+            }                                        
         }
         return false;
     }
