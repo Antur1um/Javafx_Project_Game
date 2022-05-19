@@ -2,10 +2,7 @@ package client;
 
 import java.util.Scanner;
 import core.field.Field;
-import core.field.tiles.CapturedTile;
 import core.unitlist.UnitList;
-import core.unitlist.units.Unit;
-import core.unitlist.units.Wanderer;
 import core.player.PlayerController;
 
 public class Dispatcher {
@@ -33,10 +30,6 @@ public class Dispatcher {
         System.out.println("1. Выбрать юнит");
         System.out.println("2. Создать юнит");
         System.out.println("3. Завершить ход");
-        p1.CountMyProfit();
-        p1.UpdateTreasure();
-        System.out.println("Казна: " + p1.getTreasury());
-        System.out.println("Прибыль " + p1.getProfit());
         int s = console.nextInt();
 
         if(s == 1) menuMoveUnit();
@@ -60,22 +53,7 @@ public class Dispatcher {
             System.out.print("Координаты Y: ");
             int y1 = console.nextInt();
 
-            if(p1.Check_path(x, y, x1, y1) && p1.Check_zone(x1, y1))
-                if(p1.getUnitsList().checkPoint(x1, y1))
-                    p1.getUnitsList().mergeUnit(x, y, x1, y1);
-                else{
-                    Unit unit_mv = p1.getUnitsList().getUnitByCoordinat(x, y);
-                    unit_mv.setX(x1);
-                    unit_mv.setY(y1);
-                    unit_mv.setAction(false);
-
-                    if(fid.getTile(x1, y1).getSide() != 1)
-                        fid.addTile(x1, y1, new CapturedTile(false));
-                }
-            else{
-                System.out.println("Путь не найден");
-                console.nextInt();
-            }
+            p1.moveUnit(x, y, x1, y1);
         }
         else{
             System.out.println("Юнита нет...");
@@ -91,35 +69,16 @@ public class Dispatcher {
         System.out.print("Координаты Y: ");
         int y = console.nextInt();
 
-        System.out.println(p1.Check_zone(x, y));
-        console.nextInt();
-        if (p1.Check_zone(x, y) && !p1.getUnitsList().checkPoint(x, y)){
-            
-            Unit ut = new Wanderer(x, y);
-
-            if(fid.getTile(x, y).getSide() == 0){
-                ut.setAction(false);
-                fid.addTile(x, y, new CapturedTile(false));
-            }
-
-            p1.getUnitsList().addUnit(ut);
-        }
-        else if (p1.Check_zone(x, y) && p1.getUnitsList().checkPoint(x, y))
-        {
-            Unit ut = new Wanderer(-1, -1);  // Создаю юнита вне поля, для проверки
-            p1.getUnitsList().addUnit(ut);
-            p1.getUnitsList().mergeUnit(-1, -1, x, y);
-        }
+        p1.createUnit(x, y);
 
         menuHome();
 
     }
     public void menuСomplete(){
-        menuHome();
+        return;
     }
 
 
-    
 }
 
 class Render {

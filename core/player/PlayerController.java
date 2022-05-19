@@ -1,53 +1,28 @@
 package core.player;
 
+//import java.util.Scanner;
 import core.field.Field;
 import core.unitlist.UnitList;
+import core.unitlist.units.Unit;
+import core.unitlist.units.Wanderer;
+import core.field.tiles.CapturedTile;
 
 public class PlayerController {
 
     private int side;              // 1-красный, 2-синий
     private Field fid;            // Поле общее для всех гроков
     private UnitList plr_units;  // Массив из всех юнитов игрока
-    private int treasury; //Казна
-    private int profit; // текущая прибыль
 
     public PlayerController(int side, Field field){
         this.side = side;
         this.fid = field;
-        this.treasury = 10;
-        this.profit = 5; 
         plr_units = new UnitList();
-
     }
-    public int getProfit(){
-        return profit;
-    }
-
-    public int getSide(){
-        return side;
-    }
-    public int getTreasury(){
-        return treasury;
-    }
-
     public UnitList getUnitsList(){
         return plr_units;
     }
 
-    public void UpdateTreasure(){
-        this.treasury = this.treasury + this.profit;
-    }
-
-   public void CountMyProfit(){
-       int Profit = fid.getTotalProfit_for_Side(side);
-       int Food = plr_units.CountFood();
-       profit = Profit - Food;
-   }
-
-
-
-
-    public boolean Check_path(int start_x, int start_y, int end_x, int end_y)  // проверяет может ли дойти юнит до точки
+    public boolean checkPath(int start_x, int start_y, int end_x, int end_y)  // проверяет может ли дойти юнит до точки
     {
         int HEIGHT = fid.getHeight();
         int WIDTH = fid.getWidtht();
@@ -95,11 +70,11 @@ public class PlayerController {
 
         len = grid[end_y][end_x];
 
-        if( len > 5) return false;    // 5 - длина пути!
+        if( len > 3) return false;    // 3 - длина пути!
         else return true;
     }
 
-    public boolean Check_zone(int x, int y)  // проверяет полученную точку на принадлежность к своей территории
+    public boolean checkZone(int x, int y)  // проверяет полученную точку на принадлежность к своей территории
     {                                       //  + её границы.
         if(fid.getTile(x, y).getSide() == side) return true;
         else{
@@ -110,5 +85,44 @@ public class PlayerController {
         return false;
     }
 
-   
+    public void createUnit(int x, int y){
+
+        if (checkZone(x, y) && !plr_units.checkPoint(x, y)){  // Если юнит создается на своем поле или на границе
+            
+            Unit ut = new Wanderer(x, y);                
+
+            if(fid.getTile(x, y).getSide() == 0){              // Если создаем на границе
+                ut.setAction(false);                          // то активность 0
+                fid.addTile(x, y, new CapturedTile(side));  // Тайл заменяем на наш.
+            }
+
+            plr_units.addUnit(ut);   // И добавлем юнит в список юнитов игрока.
+
+        }
+        else if (checkZone(x, y) && plr_units.checkPoint(x, y))  // Если юнит создается на уже сущесвущем нашем юните
+        {
+            Unit ut = new Wanderer(-1, -1);        // Создаю юнита вне поля, для проверки
+            plr_units.addUnit(ut);
+            plr_units.mergeUnit(-1, -1, x, y);  // отправляем на обьединение
+            
+            if(plr_units.checkPoint(-1, -1)) plr_units.delUnit(-1, -1);  // если же юнит не обьединлся, удаляем юнит его 
+        }
+    }
+
+    public void moveUnit(int start_x, int start_y, int end_x, int end_y){
+
+        if(checkPath(start_x, start_y, end_x, end_y) && checkZone(end_x, end_y))
+            if(plr_units.checkPoint(end_x, end_y))   // если ходи на юнита нашего
+                plr_units.mergeUnit(start_x, start_y, end_x, end_y);
+            else{
+                Unit unit_mv = plr_units.getUnitByCoordinat(start_x, start_y);
+                unit_mv.setX(end_x);
+                unit_mv.setY(end_y);
+                unit_mv.setAction(false);
+
+                if(fid.getTile(end_x, end_y).getSide() != side)    // Если поле куда сходил игрок было не его сделать его.
+                    fid.addTile(end_x, end_y, new CapturedTile(side));
+            }
+        
+    }
 }
