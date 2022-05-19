@@ -21,6 +21,13 @@ public class Dispatcher {
 
     Scanner console = new Scanner(System.in);
 
+
+    public PlayerController getPlayerEnemy(PlayerController current_plr){
+
+        if (p1 == current_plr) return p2;
+        else return p1;
+    }
+
     public void menuHome(PlayerController current_plr){
 
        // System.out.println("\033\143");
@@ -50,6 +57,8 @@ public class Dispatcher {
         int y = console.nextInt();
 
         if(current_plr.getUnitsList().checkPoint(x, y)){
+
+
             System.out.flush();
             System.out.println("Куда переместить?");
             System.out.print("Координаты X: ");
@@ -57,7 +66,7 @@ public class Dispatcher {
             System.out.print("Координаты Y: ");
             int y1 = console.nextInt();
 
-            current_plr.moveUnit(x, y, x1, y1);
+            current_plr.moveUnit(x, y, x1, y1, getPlayerEnemy(current_plr));
         }
         else{
             System.out.println("Юнита нет...");
@@ -73,15 +82,17 @@ public class Dispatcher {
         System.out.print("Координаты Y: ");
         int y = console.nextInt();
 
-        current_plr.createUnit(x, y);
+        current_plr.createUnit(x, y, getPlayerEnemy(current_plr));
 
         menuHome(current_plr);
 
     }
     public void menuСomplete(PlayerController current_plr){
+        current_plr.UpdateUnitAction();
         current_plr.UpdateTreasury();
         return;
     }
+
 
 }
 
@@ -90,6 +101,8 @@ class Render {
     public static final String COLOR_RESET = "\u001B[0m";
     public static final String COLOR_RED = "\u001B[31m";
     public static final String COLOR_BLUE = "\u001B[36m";
+    public static final String COLOR_BRIGHT_RED = "\u001B[91m";
+    public static final String COLOR_BRIGHT_BLUE = "\u001B[96m";
 
 
     public void drawField(Field f, UnitList ur, UnitList ub){
@@ -107,8 +120,11 @@ class Render {
                     for (int k=0; k < ur.getSize(); k++)
                         if(ur.getUnit(k).getX() == j && ur.getUnit(k).getY() == i)
                         {
-    
-                            System.out.print(" " + COLOR_RED + ur.getUnit(k).getSkin() + COLOR_RESET);
+                            if(ur.getUnit(k).getAction())
+                                System.out.print(" " + COLOR_RED + ur.getUnit(k).getSkin() + COLOR_RESET);
+                            else
+                                System.out.print(" " + COLOR_BRIGHT_RED + ur.getUnit(k).getSkin() + COLOR_RESET);
+                            
                             v = false;
                             break;
                         }
@@ -116,8 +132,11 @@ class Render {
                     for (int k=0; k < ub.getSize(); k++)
                         if(ub.getUnit(k).getX() == j && ub.getUnit(k).getY() == i)
                         {
-                           
-                            System.out.print(" " + COLOR_BLUE + ub.getUnit(k).getSkin() + COLOR_RESET);
+                            if(ub.getUnit(k).getAction())
+                                System.out.print(" " + COLOR_BLUE + ub.getUnit(k).getSkin() + COLOR_RESET);
+                            else
+                                System.out.print(" " + COLOR_BRIGHT_BLUE + ub.getUnit(k).getSkin() + COLOR_RESET);
+
                             v = false;
                             break;
                         }

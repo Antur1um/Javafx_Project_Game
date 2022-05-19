@@ -44,6 +44,19 @@ public class UnitList {
         return total_food;     
     }
 
+    public int pointProtectionRank(int x, int y){
+
+        int max_rank = 0;
+
+        if(checkPoint(x,y)) max_rank = getUnitByCoordinat(x,y).getRank();
+
+        for (int i=y-1; i <= y+1 && i >= 0; i++)
+            for(int j=x-1; j <= x+1 && j >= 0; j++)
+                if(checkPoint(j,i)) max_rank = getUnitByCoordinat(j,i).getRank();
+        
+        return max_rank;
+    }
+
     public void mergeUnit(int x1, int y1, int x2, int y2){
 
         Unit unit1 = getUnitByCoordinat(x1, y1);
