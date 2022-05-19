@@ -18,7 +18,7 @@ public class Tile {
         this.skin = skin;
     }
 
-    public int getType(){  // 0-тип пустая, 1- захвачена, 2 - захвачена заросшая ...
+    public int getType(){  // 0-тип пустая, 1- захвачена, 2 - захвачена и заросшая ...
         return 0;
     }
 

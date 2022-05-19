@@ -32,6 +32,14 @@ public class Field {
                     value++;
         return value;
     }
+    public int getProfitTiles_for_Side(int side){
+        int total_profit = 0;
+        for(int i=0; i < height; i++)
+            for(int j=0; j < width; j++)
+                if(tiles[i][j].getSide() == side && tiles[i][j].getType() == 1)
+                    total_profit++;         
+        return total_profit;
+    }
     public void addTile(int x, int y, Tile new_tile){
         if(x >= 0 && x < width && y >= 0 && y < height)
             tiles[y][x] = new_tile;

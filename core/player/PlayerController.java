@@ -9,17 +9,32 @@ import core.field.tiles.CapturedTile;
 
 public class PlayerController {
 
-    private int side;              // 1-красный, 2-синий
+    private int side;               // 1-красный, 2-синий
+    private int treasury;          // Казна
     private Field fid;            // Поле общее для всех гроков
     private UnitList plr_units;  // Массив из всех юнитов игрока
 
     public PlayerController(int side, Field field){
         this.side = side;
+        this.treasury = 10;
         this.fid = field;
         plr_units = new UnitList();
     }
+
+    public int getSide(){
+        return side;
+    }
+    public int getTreasury(){
+        return treasury;
+    }
     public UnitList getUnitsList(){
         return plr_units;
+    }
+    public int countProfit(){
+        return fid.getProfitTiles_for_Side(side) - plr_units.countSalary(); 
+    }
+    public void UpdateTreasury(){
+        treasury = treasury + countProfit();
     }
 
     public boolean checkPath(int start_x, int start_y, int end_x, int end_y)  // проверяет может ли дойти юнит до точки

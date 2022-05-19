@@ -5,6 +5,7 @@ public class Unit {
     private String skin;
     private int position_x;
     private int position_y;
+    private int cost; // стоимость юнита
     private int rank;
     private boolean side; // в отличие от плитки либо красный, либо синий.
     private boolean action = true;  // 0-сходил, 1-не сходил
@@ -22,6 +23,12 @@ public class Unit {
     }
     public int getY(){
         return position_y;
+    }
+    public int getCost(){
+        return cost;
+    }
+    public int getSalary(){
+        return 0;
     }
     public int getRank(){
         return rank;
@@ -41,6 +48,9 @@ public class Unit {
     }
     public void setY(int y){
         position_y = y;
+    }
+    protected void setCost(int cost){
+        this.cost = cost;
     }
     public void setRank(int rank){
         this.rank = rank;

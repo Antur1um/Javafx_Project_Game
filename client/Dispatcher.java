@@ -26,7 +26,9 @@ public class Dispatcher {
        // System.out.println("\033\143");
         render.drawField(fid, p1.getUnitsList(), p2.getUnitsList());
         
-        System.out.println();
+        System.out.println(); 
+        System.out.println("Казна: " + current_plr.getTreasury());
+        System.out.println("Прибыль: " + current_plr.countProfit());
         System.out.println("1. Выбрать юнит");
         System.out.println("2. Создать юнит");
         System.out.println("3. Завершить ход");
@@ -34,7 +36,7 @@ public class Dispatcher {
 
         if(s == 1) menuMoveUnit(current_plr);
         else if(s == 2) menuCreateUnit(current_plr);
-        else if(s == 3) menuСomplete();
+        else if(s == 3) menuСomplete(current_plr);
         else menuHome(current_plr);
 
     }
@@ -74,10 +76,10 @@ public class Dispatcher {
         menuHome(current_plr);
 
     }
-    public void menuСomplete(){
+    public void menuСomplete(PlayerController current_plr){
+        current_plr.UpdateTreasury();
         return;
     }
-
 
 }
 
@@ -135,5 +137,5 @@ class Render {
         }
         System.out.println("\n");
     }
-        
+    
 }
