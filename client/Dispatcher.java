@@ -3,6 +3,10 @@ package client;
 import java.util.Scanner;
 import core.field.Field;
 import core.unitlist.UnitList;
+import core.unitlist.units.Unit;
+import core.unitlist.units.Wanderer;
+import core.unitlist.units.Spearman;
+import core.unitlist.units.Guardian;
 import core.player.PlayerController;
 
 public class Dispatcher {
@@ -58,7 +62,6 @@ public class Dispatcher {
 
         if(current_plr.getUnitsList().checkPoint(x, y)){
 
-
             System.out.flush();
             System.out.println("Куда переместить?");
             System.out.print("Координаты X: ");
@@ -82,7 +85,25 @@ public class Dispatcher {
         System.out.print("Координаты Y: ");
         int y = console.nextInt();
 
-        current_plr.createUnit(x, y, getPlayerEnemy(current_plr));
+        System.out.println("1. Странник - 10$");
+        System.out.println("2. Копейщик - 20$");
+        System.out.println("3. Страж - 30$");
+        int s = console.nextInt();
+
+        Unit new_unit = new Unit(x, y);
+        if (s == 1 && current_plr.getTreasury() - 10 >= 0)
+            new_unit = new Wanderer(x, y);
+        else if (s == 2 && current_plr.getTreasury() - 20 >= 0)
+            new_unit = new Spearman(x, y);
+        else if (s == 3 && current_plr.getTreasury() - 30 >= 0)
+            new_unit = new Guardian(x, y);
+        else{
+            System.out.println("Недостаточно денег...");
+            console.nextInt();
+            menuHome(current_plr);
+        }
+
+        current_plr.createUnit(new_unit, getPlayerEnemy(current_plr));
 
         menuHome(current_plr);
 
@@ -92,7 +113,6 @@ public class Dispatcher {
         current_plr.UpdateTreasury();
         return;
     }
-
 
 }
 

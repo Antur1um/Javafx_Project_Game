@@ -1,12 +1,12 @@
 package core.player;
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 //import java.util.Scanner;
 import core.field.Field;
 import core.unitlist.UnitList;
 import core.unitlist.units.Unit;
-import core.unitlist.units.Wanderer;
+//import core.unitlist.units.Wanderer;
 import core.field.tiles.CapturedTile;
 
 public class PlayerController {
@@ -15,6 +15,7 @@ public class PlayerController {
     private int treasury;          // Казна
     private Field fid;            // Поле общее для всех гроков
     private UnitList plr_units;  // Массив из всех юнитов игрока
+    private EdificeList plr_edifices;
 
     public PlayerController(int side, Field field){
         this.side = side;
@@ -113,13 +114,14 @@ public class PlayerController {
     }
 
 
-    public void createUnit(int x, int y,  PlayerController p_emp){
+    public void createUnit(Unit ut,  PlayerController p_emp){
+
+        int x = ut.getX();
+        int y = ut.getY();
 
         if (checkZone(x, y)){
 
-            if (!plr_units.checkPoint(x, y)){  // Если юнит создается на своем поле или на границе
-            
-                Unit ut = new Wanderer(x, y);                
+            if (!plr_units.checkPoint(x, y)){  // Если юнит создается на своем поле или на границе       
 
                 if (fid.getTile(x, y).getSide() == p_emp.getSide()){  // Если создается на чужой территории 
                 
@@ -137,14 +139,17 @@ public class PlayerController {
                     ut.setAction(false);                                              // то активность 0 
                     fid.addTile(x, y, new CapturedTile(side));                       // Тайл заменяем на наш.
                 }
-                    
+                
+                treasury -= ut.getCost();
                 plr_units.addUnit(ut);   // И добавлем юнит в список юнитов игрока.
             }
             else if (plr_units.checkPoint(x, y))  // Если юнит создается на уже сущесвущем нашем юните
             {
-                Unit ut = new Wanderer(-1, -1);        // Создаю юнита вне поля, для проверки
+                ut.setX(-1);  // Создаю юнита вне поля, для проверки
+                ut.setY(-1);
                 plr_units.addUnit(ut);
                 plr_units.mergeUnit(-1, -1, x, y);  // отправляем на обьединение
+                treasury -= ut.getCost();
                 
                 if(plr_units.checkPoint(-1, -1)) plr_units.delUnit(-1, -1);  // если же юнит не обьединлся, удаляем юнит его 
             }
