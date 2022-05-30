@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.HelloController">
+   <children>
+      <ImageView fitHeight="768.0" fitWidth="1366.0">
+         <image>
+            <Image url="@window_background.png" />
+         </image>
+      </ImageView>
+      <ScrollPane fx:id="game_screen" layoutX="25.0" layoutY="14.0" prefHeight="580.0" prefWidth="1100.0">
+         <content>
+            <AnchorPane fx:id="main_screen" prefHeight="348.0" prefWidth="589.0">
+               <children>
+                  <ImageView fx:id="neutral" fitHeight="200.0" fitWidth="200.0" layoutX="3.0" layoutY="4.0">
+                     <image>
+                        <Image  url="@../../../../java/com/example/demo/tile.png" />
+                     </image>
+                  </ImageView>
+               </children></AnchorPane>
+         </content>
+      </ScrollPane>
+      <Slider fx:id="zoom" layoutX="1155.0" layoutY="33.0" style="-fx-background-color: #000;" />
+   </children>
+</AnchorPane>
