@@ -10,37 +10,31 @@ import javafx.scene.shape.Rectangle;
 
 
 import java.io.File;
+import java.util.HashMap;
 
 import static com.example.demo.HelloController.TILE_SIZE;
 
 
-
+//
 public class Tile extends ImageView{
 
+    private String getSkin(String t){
+        HashMap<String, String> skins = new HashMap<>();
+        skins.put("TILE", "src/main/resources/com/example/demo/tiles_skins/tile.png" );
+        //skins.put("TILE_GROWN", "src/main/resources/com/example/demo/units_skins/spearman_blue.png" );
+        skins.put("TILE_RED", "src/main/resources/com/example/demo/tiles_skins/red_tile.png" );
+        skins.put("TILE_BLUE", "src/main/resources/com/example/demo/tiles_skins/blue_tile.png" );
 
-    //ImageView pick = new ImageView("com/example/demo/tile.png");
-    private ImageView status;
+        return skins.get(t);
+    }
 
-
-        public Tile(File file, int x, int y) {
-            //File file  = new File("D:/Хранилище/Институт/Checkers_remade/demo/src/main/java/com/example/demo/tile.png");
+        public Tile(String type, int x, int y) {
+        File file = new File(getSkin(type.toString()));
             Image image = new Image(file.toURI().toString());
-            ImageView tile = new ImageView(image);
-            status = tile;
-            status.setFitHeight(TILE_SIZE);
-            status.setFitWidth(TILE_SIZE);
-            status.relocate(x * TILE_SIZE, y * TILE_SIZE);
-
-            //this.setStyle("-fx-background-image: File: com/example/demo/tile.png ");
-            //this.getChildren().addAll(pick);
-            //this.getChildren().add(pic);
-            //setStyle("-fx-background-image: url(../../../../resources/com/example/demo/tile.png)");
+            setImage(image);
+            setFitHeight(TILE_SIZE);
+            setFitWidth(TILE_SIZE);
+            relocate(x * TILE_SIZE, y * TILE_SIZE);
+            isSmooth();
         }
-
-        public ImageView getStatus(){
-            return status;
-        }
-
-
-
 }

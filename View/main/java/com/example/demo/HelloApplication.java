@@ -22,10 +22,23 @@ public class HelloApplication extends Application {
         Parent loader = fxmlLoader.load();
         HelloController controller = fxmlLoader.getController();
         controller.draw_field();
-        Scene scene = new Scene(loader, 1280, 720);
 
-        stage.setTitle("Game_Window");
+        controller.draw_tile("TILE_RED", 2, 2);
+        controller.draw_tile("TILE_RED", 2, 3);
+        controller.draw_tile("TILE_BLUE", 3, 1);
 
+
+
+        controller.draw_unit("GUARDIAN_BLUE",2,1);
+        controller.draw_unit("GUARDIAN_RED",3,1);
+
+        controller.draw_unit("SPEARMAN_BLUE",2,2);
+        controller.draw_unit("SPEARMAN_RED", 2,3);
+
+
+        Scene scene = new Scene(loader, 1366, 768);
+        stage.setTitle("Dark_Chess");
+        //stage.setFullScreen(true);
         stage.setScene(scene);
         stage.show();
     }
