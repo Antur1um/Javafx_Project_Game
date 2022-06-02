@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #202020;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.view.ScreenController">
+   <children>
+      <ScrollPane fx:id="game_screen" layoutX="25.0" layoutY="14.0" prefHeight="738.0" prefWidth="1090.0">
+         <content>
+            <AnchorPane fx:id="main_screen" prefHeight="348.0" prefWidth="589.0">
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor></AnchorPane>
+         </content>
+      </ScrollPane>
+      <Slider fx:id="zoom" layoutX="1155.0" layoutY="33.0" style="-fx-background-color: #000;" />
+      <TextArea fx:id="Profit" layoutX="1225.0" layoutY="138.0" prefHeight="38.0" prefWidth="85.0" text="0" />
+      <TextArea fx:id="Treasure" layoutX="1140.0" layoutY="138.0" prefHeight="38.0" prefWidth="85.0" text="50" />
+      <Text fill="WHITE" layoutX="1133.0" layoutY="124.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Казна" textAlignment="CENTER" wrappingWidth="85.0">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="1225.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Прибыль" textAlignment="CENTER" wrappingWidth="101.98046875">
+         <font>
+            <Font name="Times New Roman" size="24.0" />
+         </font>
+      </Text>
+      <Button fx:id="Stranger" layoutX="1168.0" layoutY="201.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Странник" />
+      <Button fx:id="Spear" layoutX="1168.0" layoutY="315.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Копейщик" />
+      <Button fx:id="Guard" layoutX="1168.0" layoutY="430.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Страж" />
+      <Button fx:id="End" layoutX="1139.0" layoutY="659.0" mnemonicParsing="false" prefHeight="84.0" prefWidth="174.0" text="Конец хода">
+         <font>
+            <Font name="Times New Roman" size="18.0" />
+         </font>
+      </Button>
+      <TextArea fx:id="Info" layoutX="1127.0" layoutY="541.0" prefHeight="74.0" prefWidth="196.0" />
+   </children>
+</AnchorPane>
