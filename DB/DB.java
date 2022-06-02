@@ -47,4 +47,25 @@ public class PlayerDB
             throw e;
         }
     }
+
+    public static void insert(int score, String nickname) 
+    {
+        try 
+        {
+            ObservableList<Player> pList = getAll();
+            if (pList.get(9).getScore() < score) 
+            {
+                String query = "INSERT INTO RATING (NICKNAME, SCORE) VALUES ('" + nickname + "', " + Integer.toString(score) + ");";
+                DBUtil.dbExecuteUpdate(query);
+                pList = getAll();
+                int id = pList.get(10).getId();
+                query = "DELETE FROM RATING\nWHERE ID = " + id + ";";
+                DBUtil.dbExecuteUpdate(query);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+    }
 }
